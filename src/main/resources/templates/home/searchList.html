@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="css/searchList.css" />
+<!-- <script type="text/javascript" src="javascript/searchList.js"></script>  -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+	
+</script>
+<script>
+	$(document)
+			.ready(
+					function() {
+
+						$("#basicSearch")
+								.click(
+										function() {
+											alert("The basic search was clicked.");
+											$
+													.ajax({
+														url : 'basicSearch',
+														dataType : "json",
+														data : {
+															courseName : $(
+																	"#courseName")
+																	.val(),
+															courseSkillFamily : $(
+																	"#courseSkillFamily")
+																	.val(),
+															courseProficiency : $(
+																	"#courseProficiency")
+																	.val()
+														},
+														success : function(data) {
+															var course = data;
+															if (course.length != 0) {
+																var courseList = '';
+																for (var i = 0; i < course.length; i++) {
+
+																	courseList += 'Course Name: '
+																			+ course[i].courseCode
+																			+ '<br>Course Name: '
+																			+ course[i].courseName
+																			+ '<br> courseSkillFamily: '
+																			+ course[i].courseSkillFamily
+																			+ '<br> courseProficiency: '
+																			+ course[i].courseProficiency
+																			+ '<br> courseStatus: '
+																			+ course[i].courseStatus
+																			+ '<br> courseLicence: '
+																			+ course[i].courseLicence
+																			+ '<br> courseActivityType: '
+																			+ course[i].courseActivityType
+																			+ '<br> courseCreationDate: '
+																			+ course[i].courseCreationDate
+																			+ '<br>====================================<br>'
+
+																}
+																$("#result")
+																		.html(
+																				courseList);
+
+															} else {
+																$("#result")
+																		.text(
+																				"No Course for the Above Search can be find");
+															}
+
+														}
+
+													});
+										});
+					});
+</script>
+</head>
+<body>
+	<p>
+		<a href="home">HOME</a> &ensp;<a href="">Export As Excel</a>
+	</p>
+	<h2>Course Cataloging Tool</h2>
+
+	<p>Start Searching..</p>
+
+	<!--Make sure the form has the autocomplete function switched off:-->
+	<form autocomplete="off" action="">
+		<div class="autocomplete" style="width: 1000px;">
+			<table>
+				<tr>
+					<td><input id="courseName" type="text" name="courseName"
+						placeholder="Course Name"></td>
+					<td><input id="courseSkillFamily" type="text"
+						name="courseSkillFamily" placeholder="Skill"></td>
+					<td><input id="courseProficiency" type="text"
+						name="courseProficiency" placeholder="Proficiency Level"></td>
+					<td><input id="basicSearch" type="button" value="basicSearch"
+						style="color: #3333cc; backgroud-color: #b4e0d2;"></td>
+			</table>
+
+			<table>
+				<tr>
+					<td><input id="courseCode" type="text" name="courseCode"
+						placeholder="Course Code"></td>
+					<td><input id="courseDescription" type="text"
+						name="courseDescription" placeholder="Description"></td>
+					<td>
+						<!-- <input id="courseLicence" type="text" name="courseLicence"
+						placeholder="License"> --> <select name="courseLicence"
+						id="courseLicence">
+							<option value="">License</option>
+							<option value="Udemy">Udemy</option>
+							<option value="PluralSight">PluralSight</option>
+							<option value="Internal Cognizant">Internal Cognizant</option>
+					</select>
+
+					</td>
+					<td>
+						<!-- <input id="courseActivityType" type="text"
+						name="courseActivityType" placeholder="Activity"> --> <select
+						name="courseActivityType" id="courseActivityType">
+							<option value="">Activity Type</option>
+							<option value="Course">Course</option>
+							<option value="Certificate">Certificate</option>
+							<option value="Project">Project</option>
+					</select>
+					</td>
+					<td><input id="advanceSearch" type="button" value="Advance"></td>
+				</tr>
+			</table>
+			<!-- <th:if test="${courseList.size() > 0}">
+				<table id="result">
+					<tr>
+						<td><input type="text" value="Course Code"
+							style="color: #3333cc; backgroud-color: #b4e0d2;"></td>
+						<td><input type="text" value="Course Name"
+							style="color: #3333cc; backgroud-color: #b4e0d2;"></td>
+						<td><input type="text" value="Skill Family"
+							style="color: #3333cc; backgroud-color: #b4e0d2;"></td>
+						<td><input type="text" value="Description"
+							style="color: #3333cc; backgroud-color: #b4e0d2;"></td>
+						<td><input type="text" value="Proficiency"
+							style="color: #3333cc; backgroud-color: #b4e0d2;"></td>
+						<td><input type="text" value="Status"
+							style="color: #3333cc; backgroud-color: #b4e0d2;"></td>
+						<td><input type="text" value="License"
+							style="color: #3333cc; backgroud-color: #b4e0d2;"></td>
+						<td><input type="text" value="Type"
+							style="color: #3333cc; backgroud-color: #b4e0d2;"></td>
+						<td><input type="text" value="Creation Date"
+							style="color: #3333cc; backgroud-color: #b4e0d2;"></td>
+					</tr>
+					<tr th:each="course : ${courseList}">
+						<td th:text="${course.courseCode}"></td>
+						<td th:text="${course.courseName}"></td>
+						<td th:text="${course.courseSkillFamily}"></td>
+						<td th:text="${course.courseDescription}"></td>
+						<td th:text="${course.courseProficiency}"></td>
+						<td th:text="${course.courseStatus}"></td>
+						<td th:text="${course.courseLicence}"></td>
+						<td th:text="${course.courseActivityType}"></td>
+						<td th:text="${course.courseCreationDate}"></td>
+					</tr>
+				</table>
+			</th:if> -->
+
+		</div>
+	</form>
+	<div id="result"></div>
+	<script>
+		function autocomplete(inp, arr) {
+			/*the autocomplete function takes two arguments,
+			the text field element and an array of possible autocompleted values:*/
+			var currentFocus;
+			/*execute a function when someone writes in the text field:*/
+			inp
+					.addEventListener(
+							"input",
+							function(e) {
+								var a, b, i, val = this.value;
+								/*close any already open lists of autocompleted values*/
+								closeAllLists();
+								if (!val) {
+									return false;
+								}
+								currentFocus = -1;
+								/*create a DIV element that will contain the items (values):*/
+								a = document.createElement("DIV");
+								a.setAttribute("id", this.id
+										+ "autocomplete-list");
+								a.setAttribute("class", "autocomplete-items");
+								/*append the DIV element as a child of the autocomplete container:*/
+								this.parentNode.appendChild(a);
+								/*for each item in the array...*/
+								for (i = 0; i < arr.length; i++) {
+									/*check if the item starts with the same letters as the text field value:*/
+									if (arr[i].substr(0, val.length)
+											.toUpperCase() == val.toUpperCase()) {
+										/*create a DIV element for each matching element:*/
+										b = document.createElement("DIV");
+										/*make the matching letters bold:*/
+										b.innerHTML = "<strong>"
+												+ arr[i].substr(0, val.length)
+												+ "</strong>";
+										b.innerHTML += arr[i]
+												.substr(val.length);
+										/*insert a input field that will hold the current array item's value:*/
+										b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+										/*execute a function when someone clicks on the item value (DIV element):*/
+										b
+												.addEventListener(
+														"click",
+														function(e) {
+															/*insert the value for the autocomplete text field:*/
+															inp.value = this
+																	.getElementsByTagName("input")[0].value;
+															/*close the list of autocompleted values,
+															(or any other open lists of autocompleted values:*/
+															closeAllLists();
+														});
+										a.appendChild(b);
+									}
+								}
+							});
+			/*execute a function presses a key on the keyboard:*/
+			inp.addEventListener("keydown", function(e) {
+				var x = document.getElementById(this.id + "autocomplete-list");
+				if (x)
+					x = x.getElementsByTagName("div");
+				if (e.keyCode == 40) {
+					/*If the arrow DOWN key is pressed,
+					increase the currentFocus variable:*/
+					currentFocus++;
+					/*and and make the current item more visible:*/
+					addActive(x);
+				} else if (e.keyCode == 38) { //up
+					/*If the arrow UP key is pressed,
+					decrease the currentFocus variable:*/
+					currentFocus--;
+					/*and and make the current item more visible:*/
+					addActive(x);
+				} else if (e.keyCode == 13) {
+					/*If the ENTER key is pressed, prevent the form from being submitted,*/
+					e.preventDefault();
+					if (currentFocus > -1) {
+						/*and simulate a click on the "active" item:*/
+						if (x)
+							x[currentFocus].click();
+					}
+				}
+			});
+			function addActive(x) {
+				/*a function to classify an item as "active":*/
+				if (!x)
+					return false;
+				/*start by removing the "active" class on all items:*/
+				removeActive(x);
+				if (currentFocus >= x.length)
+					currentFocus = 0;
+				if (currentFocus < 0)
+					currentFocus = (x.length - 1);
+				/*add class "autocomplete-active":*/
+				x[currentFocus].classList.add("autocomplete-active");
+			}
+			function removeActive(x) {
+				/*a function to remove the "active" class from all autocomplete items:*/
+				for (var i = 0; i < x.length; i++) {
+					x[i].classList.remove("autocomplete-active");
+				}
+			}
+			function closeAllLists(elmnt) {
+				/*close all autocomplete lists in the document,
+				except the one passed as an argument:*/
+				var x = document.getElementsByClassName("autocomplete-items");
+				for (var i = 0; i < x.length; i++) {
+					if (elmnt != x[i] && elmnt != inp) {
+						x[i].parentNode.removeChild(x[i]);
+					}
+				}
+			}
+			/*execute a function when someone clicks in the document:*/
+			document.addEventListener("click", function(e) {
+				closeAllLists(e.target);
+			});
+		}
+
+		/*An array containing all the country names in the world:*/
+		var countries = [ "Afghanistan", "Albania", "Algeria", "Andorra",
+				"Angola", "Anguilla", "Antigua & Barbuda", "Argentina",
+				"Armenia", "Aruba", "Australia", "Austria", "Azerbaijan",
+				"Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus",
+				"Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia",
+				"Bosnia & Herzegovina", "Botswana", "Brazil",
+				"British Virgin Islands", "Brunei", "Bulgaria", "Burkina Faso",
+				"Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde",
+				"Cayman Islands", "Central Arfrican Republic", "Chad", "Chile",
+				"China", "Colombia", "Congo", "Cook Islands", "Costa Rica",
+				"Cote D Ivoire", "Croatia", "Cuba", "Curacao", "Cyprus",
+				"Czech Republic", "Denmark", "Djibouti", "Dominica",
+				"Dominican Republic", "Ecuador", "Egypt", "El Salvador",
+				"Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia",
+				"Falkland Islands", "Faroe Islands", "Fiji", "Finland",
+				"France", "French Polynesia", "French West Indies", "Gabon",
+				"Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece",
+				"Greenland", "Grenada", "Guam", "Guatemala", "Guernsey",
+				"Guinea", "Guinea Bissau", "Guyana", "Haiti", "Honduras",
+				"Hong Kong", "Hungary", "Iceland", "India", "Indonesia",
+				"Iran", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy",
+				"Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya",
+				"Kiribati", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia",
+				"Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein",
+				"Lithuania", "Luxembourg", "Macau", "Macedonia", "Madagascar",
+				"Malawi", "Malaysia", "Maldives", "Mali", "Malta",
+				"Marshall Islands", "Mauritania", "Mauritius", "Mexico",
+				"Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro",
+				"Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia",
+				"Nauro", "Nepal", "Netherlands", "Netherlands Antilles",
+				"New Caledonia", "New Zealand", "Nicaragua", "Niger",
+				"Nigeria", "North Korea", "Norway", "Oman", "Pakistan",
+				"Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay",
+				"Peru", "Philippines", "Poland", "Portugal", "Puerto Rico",
+				"Qatar", "Reunion", "Romania", "Russia", "Rwanda",
+				"Saint Pierre & Miquelon", "Samoa", "San Marino",
+				"Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia",
+				"Seychelles", "Sierra Leone", "Singapore", "Slovakia",
+				"Slovenia", "Solomon Islands", "Somalia", "South Africa",
+				"South Korea", "South Sudan", "Spain", "Sri Lanka",
+				"St Kitts & Nevis", "St Lucia", "St Vincent", "Sudan",
+				"Suriname", "Swaziland", "Sweden", "Switzerland", "Syria",
+				"Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor L'Este",
+				"Togo", "Tonga", "Trinidad & Tobago", "Tunisia", "Turkey",
+				"Turkmenistan", "Turks & Caicos", "Tuvalu", "Uganda",
+				"Ukraine", "United Arab Emirates", "United Kingdom",
+				"United States of America", "Uruguay", "Uzbekistan", "Vanuatu",
+				"Vatican City", "Venezuela", "Vietnam", "Virgin Islands (US)",
+				"Yemen", "Zambia", "Zimbabwe" ];
+		var courseName = [ "Core Java", "Spring MVC", "Spring Core", "Python",
+				"Jsp And Servlet", "Spring Boot", "Java Script",
+				"Machine Learning" ];
+		var skills = [ "Java", "Python", "Web Development" ];
+		var proficiencies = [ "1", "2", "3" ];
+		var courseCode = [ "102PS", "103PS", "104COG", "108UD", "102COG" ];
+		var courseDescription = [
+				"Fundamentals of Core Java",
+				"Learn how to develop java web based appication using spring mvc",
+				"basic of spring core",
+				"Language Fundamentals of Python Langauge",
+				"Fundamentals of JQuery which is a Java Script Framework" ];
+		var courseLicence = [ "Udemy", "PluralSight", "Cognizant" ];
+		var courseActivityType = [ "Course", "Certificate", "Project" ];
+
+		/*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+		// autocomplete(document.getElementById("myInput"), countries);
+		autocomplete(document.getElementById("courseName"), courseName);
+		autocomplete(document.getElementById("courseSkillFamily"), skills);
+		autocomplete(document.getElementById("courseProficiency"),
+				proficiencies);
+		autocomplete(document.getElementById("courseCode"), courseCode);
+		autocomplete(document.getElementById("courseDescription"),
+				courseDescription);
+		autocomplete(document.getElementById("courseLicence"), courseLicence);
+		autocomplete(document.getElementById("courseActivityType"),
+				courseActivityType);
+	</script>
+
+</body>
+</html>
+
+
+
+
