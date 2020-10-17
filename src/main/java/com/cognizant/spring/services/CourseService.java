@@ -43,15 +43,93 @@ public class CourseService {
 				courseStatus);
 	}
 
-	public List<Course> findByCourseName(String courseName, String courseStatus) {
+	public List<Course> findCourseByCourseName(String courseName, String courseStatus) {
 		return courseRepository.findByCourseNameAndCourseStatus(courseName, courseStatus);
 	}
 
-	public List<Course> findBySkill(String courseSkillFamily, String courseStatus) {
+	public List<Course> findCourseBySkill(String courseSkillFamily, String courseStatus) {
 		return courseRepository.findByCourseSkillFamilyAndCourseStatus(courseSkillFamily, courseStatus);
 	}
 
-	public List<Course> findByProficiency(String courseProficiency, String courseStatus) {
+	public List<Course> findCourseByProficiency(String courseProficiency, String courseStatus) {
 		return courseRepository.findByCourseProficiencyAndCourseStatus(courseProficiency, courseStatus);
+	}
+
+	public List<Course> findCourseByCodeDescriptionLicenceActivity(String courseCode, String courseDescription,
+			String courseLicence, String courseActivityType, String courseStatus) {
+		return courseRepository
+				.findByCourseCodeAndCourseDescriptionAndCourseLicenceAndCourseActivityTypeAndCourseStatus(courseCode,
+						courseDescription, courseLicence, courseActivityType, courseStatus);
+	}
+
+	public List<Course> findCourseByCodeDescriptionLicence(String courseCode, String courseDescription,
+			String courseLicence, String courseStatus) {
+		return courseRepository.findByCourseCodeAndCourseDescriptionAndCourseLicenceAndCourseStatus(courseCode,
+				courseDescription, courseLicence, courseStatus);
+
+	}
+
+	public List<Course> findCourseByDescriptionLicenceActivity(String courseDescription, String courseLicence,
+			String courseActivityType, String courseStatus) {
+		return courseRepository.findByCourseDescriptionAndCourseLicenceAndCourseActivityTypeAndCourseStatus(
+				courseDescription, courseLicence, courseActivityType, courseStatus);
+
+	}
+
+	public List<Course> findCourseByCodeLicenceActivity(String courseCode, String courseLicence,
+			String courseActivityType, String courseStatus) {
+		return courseRepository.findByCourseCodeAndCourseLicenceAndCourseActivityTypeAndCourseStatus(courseCode,
+				courseLicence, courseActivityType, courseStatus);
+
+	}
+
+	public List<Course> findCourseByCodeDescription(String courseCode, String courseDescription, String courseStatus) {
+		return courseRepository.findByCourseCodeAndCourseDescriptionAndCourseStatus(courseCode, courseDescription,
+				courseStatus);
+	}
+
+	public List<Course> findCourseByCodeLicence(String courseCode, String courseLicence, String courseStatus) {
+		return courseRepository.findByCourseCodeAndCourseLicenceAndCourseStatus(courseCode, courseLicence,
+				courseStatus);
+	}
+
+	public List<Course> findCourseByDescriptionLicence(String courseDescription, String courseLicence,
+			String courseStatus) {
+		return courseRepository.findByCourseDescriptionAndCourseLicenceAndCourseStatus(courseDescription, courseLicence,
+				courseStatus);
+	}
+
+	public List<Course> findCourseByDescriptionActivity(String courseDescription, String courseActivityType,
+			String courseStatus) {
+		return courseRepository.findByCourseDescriptionAndCourseActivityTypeAndCourseStatus(courseDescription,
+				courseActivityType, courseStatus);
+	}
+
+	public List<Course> findCourseByLicenceActivity(String courseLicence, String courseActivityType,
+			String courseStatus) {
+		return courseRepository.findByCourseLicenceAndCourseActivityTypeAndCourseStatus(courseLicence,
+				courseActivityType, courseStatus);
+
+	}
+
+	public List<Course> findCourseByCodeActivity(String courseCode, String courseActivityType, String courseStatus) {
+		return courseRepository.findByCourseCodeAndCourseActivityTypeAndCourseStatus(courseCode, courseActivityType,
+				courseStatus);
+	}
+
+	public List<Course> findCourseByCode(String courseCode, String courseStatus) {
+		return courseRepository.findByCourseCodeAndCourseStatus(courseCode, courseStatus);
+	}
+
+	public List<Course> findCourseByDescription(String courseDescription, String courseStatus) {
+		return courseRepository.findByCourseDescriptionAndCourseStatus(courseDescription, courseStatus);
+	}
+
+	public List<Course> findCourseByLicence(String courseLicence, String courseStatus) {
+		return courseRepository.findByCourseLicenceAndCourseStatus(courseLicence, courseStatus);
+	}
+
+	public List<Course> findCourseByActivity(String courseActivityType, String courseStatus) {
+		return courseRepository.findByCourseActivityTypeAndCourseStatus(courseActivityType, courseStatus);
 	}
 }
