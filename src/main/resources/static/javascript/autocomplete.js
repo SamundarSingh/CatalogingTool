@@ -1,67 +1,6 @@
-$(document)
-	.ready(
-		function() {
-
-			$("#basicSearch")
-				.click(
-					function() {
-						alert("The basic search was clicked.");
-						$
-							.ajax({
-								url: 'basicSearch',
-								dataType: "json",
-								data: {
-									courseName: $(
-										"#courseName")
-										.val(),
-									courseSkillFamily: $(
-										"#courseSkillFamily")
-										.val(),
-									courseProficiency: $(
-										"#courseProficiency")
-										.val()
-								},
-								success: function(data) {
-									var course = data;
-									if (course.length != 0) {
-										var courseList = '';
-										for (var i = 0; i < course.length; i++) {
-
-											courseList += 'Course Name: '
-												+ course[i].courseCode
-												+ '<br>Course Name: '
-												+ course[i].courseName
-												+ '<br> courseSkillFamily: '
-												+ course[i].courseSkillFamily
-												+ '<br> courseProficiency: '
-												+ course[i].courseProficiency
-												+ '<br> courseStatus: '
-												+ course[i].courseStatus
-												+ '<br> courseLicence: '
-												+ course[i].courseLicence
-												+ '<br> courseActivityType: '
-												+ course[i].courseActivityType
-												+ '<br> courseCreationDate: '
-												+ course[i].courseCreationDate
-												+ '<br>====================================<br>'
-
-										}
-										$("#result")
-											.html(
-												courseList);
-
-									} else {
-										$("#result")
-											.text(
-												"No Course for the Above Search can be find");
-									}
-
-								}
-
-							});
-					});
-		});
-
+/**
+ * 
+ */
 
 function autocomplete(inp, arr) {
 	/*the autocomplete function takes two arguments,
@@ -245,7 +184,6 @@ var courseLicence = ["Udemy", "PluralSight", "Cognizant"];
 var courseActivityType = ["Course", "Certificate", "Project"];
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-// autocomplete(document.getElementById("myInput"), countries);
 autocomplete(document.getElementById("courseName"), courseName);
 autocomplete(document.getElementById("courseSkillFamily"), skills);
 autocomplete(document.getElementById("courseProficiency"),
@@ -255,5 +193,4 @@ autocomplete(document.getElementById("courseDescription"),
 	courseDescription);
 autocomplete(document.getElementById("courseLicence"), courseLicence);
 autocomplete(document.getElementById("courseActivityType"),
-	courseActivityType);
-
+	courseActivityType); 

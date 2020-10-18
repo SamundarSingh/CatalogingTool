@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -28,14 +27,7 @@ public class CourseController {
 
 	@RequestMapping("/home")
 	public String home() {
-		return "home/searchList";
-	}
-
-	@RequestMapping("/exporttoexcel")
-	public String exportToExcel(@PathVariable List<Course> courseList) {
-		System.out.println("CourseList received for export: " + courseList);
-		return "home/searchList";
-
+		return "home/home";
 	}
 
 	@RequestMapping("/basicSearch")
@@ -44,14 +36,8 @@ public class CourseController {
 		System.out.println("course: " + course);
 		String courseName = course.getCourseName() == null ? "" : course.getCourseName();
 		String courseSkillFamily = course.getCourseSkillFamily() == null ? "" : course.getCourseSkillFamily();
-
-//		Integer courseProficiencyInteger = course.getCourseProficiency();
 		String courseProficiency = course.getCourseProficiency() == null ? "" : course.getCourseProficiency();
-		System.out.println(courseName == "");
-		System.out.println(courseSkillFamily == "");
-		System.out.println(courseProficiency == "");
 
-//		List<Course> courseList = null;
 		if (courseName != "" && courseSkillFamily != "" && courseProficiency != "") {
 			System.out.println("Three property are not null");
 			courseList = courseService.findCourseByCourseNameSkillProficiency(courseName, courseSkillFamily,
@@ -85,12 +71,10 @@ public class CourseController {
 
 		Collections.sort(courseList);
 
-//		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		json = gson.toJson(courseList);
 
-		System.out.println("Found Courses: " + courseList);
 		System.out.println(json);
-//		model.addAttribute("courseList", courseList);
+
 		return json;
 
 	}
@@ -157,7 +141,6 @@ public class CourseController {
 
 		json = gson.toJson(courseList);
 
-		System.out.println("Found Courses: " + courseList);
 		System.out.println(json);
 
 		return json;
