@@ -10,5 +10,5 @@ Technology
 4. Thymeleaf
 
 Features of Application
-1. Basic and Advance Search option for Searching Courses
-2. Export the result set in Excel format(working)
+1. Basic and Advance Search option for Searching Courses.
+2. Export the result set in Excel format.
